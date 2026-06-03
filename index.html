@@ -49,6 +49,12 @@
         /* 자기소개 섹션 */
         #about { background: white; }
         .about-container { display: grid; grid-template-columns: 1fr 2fr; gap: 40px; align-items: center; }
+        .profile-img { 
+            width: 100%; 
+            max-width: 400px;
+            border-radius: 20px; 
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1); 
+        }
         .about-details { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 20px; }
         .detail-item { 
             padding: 20px; background: #f8f9fa; border-radius: 15px; 
@@ -100,6 +106,17 @@
         
         footer { text-align: center; padding: 2rem; background: #212529; color: #888; font-size: 0.9rem; }
 
+        /* 애니메이션 효과 */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.6s ease-out;
+        }
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
         /* 반응형 설정 */
         @media (max-width: 768px) {
             .about-container { grid-template-columns: 1fr; text-align: center; }
@@ -124,17 +141,17 @@
     </nav>
 
     <!-- 히어로 섹션 -->
-    <section id="home">
-        <img src="profile_photo.png" alt="김태연 프로필" class="hero-img"> <!-- 파일명을 profile_photo.png로 확인해 주세요 -->
+    <section id="home" class="fade-in">
+        <img src="https://via.placeholder.com/200" alt="김태연 프로필" class="hero-img"> 
         <h1>안녕하세요, 김태연입니다</h1>
         <p>열정적인 성장을 꿈꾸는 SW 개발 및 게임 개발 분야 학생 개발자입니다.</p>
     </section>
 
     <!-- 자기소개 섹션 -->
-    <section id="about">
+    <section id="about" class="fade-in">
         <h2 class="section-title">About Me</h2>
         <div class="about-container">
-            <img src="my_photo.jpg" alt="상세 이미지" class="profile-img"> <!-- 파일명을 my_photo.jpg로 확인해 주세요 -->
+            <img src="https://via.placeholder.com/400x500" alt="상세 이미지" class="profile-img">
             <div>
                 <h3 class="section-subtitle">"끊임없이 배우고 해결하는 과정을 즐깁니다."</h3>
                 <p>끈기 자신감 도전정신.</p>
@@ -162,7 +179,7 @@
     </section>
 
     <!-- 비전 섹션 -->
-    <section id="vision">
+    <section id="vision" class="fade-in">
         <h2 class="section-title">Vision</h2>
         <div class="vision-text">
             <p>"사용자 경험을 중시하여 삶의 질을 높이고 윤택하게 만듭니다. <br>
@@ -171,7 +188,7 @@
     </section>
 
     <!-- 강의 섹션 -->
-    <section id="courses">
+    <section id="courses" class="fade-in">
         <h2 class="section-title">Current Courses</h2>
         <div class="course-list">
             <div class="course-card">
@@ -190,7 +207,7 @@
     </section>
 
     <!-- 프로젝트 섹션 -->
-    <section id="projects">
+    <section id="projects" class="fade-in">
         <h2 class="section-title">Projects</h2>
         <div class="project-grid">
             <div class="project-card">
@@ -210,7 +227,7 @@
     </section>
 
     <!-- 기술 섹션 -->
-    <section id="skills">
+    <section id="skills" class="fade-in">
         <h2 class="section-title">Skills</h2>
         <div class="skills">
             <span class="skill-tag"><i class="fab fa-python"></i> Python</span>
@@ -242,6 +259,18 @@
                 });
             });
         });
+
+        // 스크롤 애니메이션 스크립트
+        const observerOptions = { threshold: 0.1 };
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
     </script>
 </body>
 </html>
